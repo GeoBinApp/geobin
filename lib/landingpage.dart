@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geobin/homepage.dart';
+import 'package:auth_buttons/auth_buttons.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
