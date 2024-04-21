@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:geobin/communities.dart';
+import 'package:geobin/geotag.dart';
 import 'package:geobin/homepage.dart';
 import 'package:geobin/profilepage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class navBar extends StatefulWidget {
+  int selectedIndex;
+  navBar({this.selectedIndex = 0});
   @override
   _navBarState createState() => _navBarState();
 }
 
 class _navBarState extends State<navBar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Likes',
-      style: optionStyle,
-    ),
+    geoTagScreen(),
     communitiesPage(),
     ProfilePage(),
   ];
@@ -60,7 +66,7 @@ class _navBarState extends State<navBar> {
                 ),
                 GButton(
                   icon: Icons.heart_broken,
-                  text: 'Likes',
+                  text: 'GeoTag',
                 ),
                 GButton(
                   icon: Icons.people,
