@@ -55,154 +55,169 @@ class _LandingPageState extends State<LandingPage> {
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Center(
-                    child: Text(
-                      "Welcome to",
-                      style: GoogleFonts.averiaGruesaLibre(
-                          fontSize: 45, color: Colors.white),
+        body: SingleChildScrollView(
+          child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                SizedBox(
+                  height: 125,
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 100,
                     ),
-                  ),
-                  Center(
-                    child: Text(
-                      "GeoBin",
-                      style:
-                          GoogleFonts.cutive(fontSize: 60, color: Colors.white),
+                    Center(
+                      child: Text(
+                        "Welcome to",
+                        style: GoogleFonts.averiaGruesaLibre(
+                            fontSize: 45, color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        iconColor: Colors.white,
-                        focusColor: Colors.white,
-                        hoverColor: Colors.white,
-                        suffixIconColor: Colors.white,
-                        hintText: 'Enter Email Address',
-                        suffixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                    Center(
+                      child: Text(
+                        "GeoBin",
+                        style: GoogleFonts.cutive(
+                            fontSize: 60, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        cursorColor: Colors.white,
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          iconColor: Colors.white,
+                          focusColor: Colors.white,
+                          hoverColor: Colors.white,
+                          suffixIconColor: Colors.white,
+                          hintText: 'Enter Email Address',
+                          suffixIcon: Icon(Icons.person),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      decoration: const InputDecoration(
-                        iconColor: Colors.white,
-                        focusColor: Colors.white,
-                        hoverColor: Colors.white,
-                        suffixIconColor: Colors.white,
-                        hintText: 'Enter Password',
-                        suffixIcon: Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        cursorColor: Colors.white,
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: const InputDecoration(
+                          iconColor: Colors.white,
+                          focusColor: Colors.white,
+                          hoverColor: Colors.white,
+                          suffixIconColor: Colors.white,
+                          hintText: 'Enter Password',
+                          suffixIcon: Icon(Icons.lock),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: emailController.text,
-                                password: passwordController.text);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
+                    GestureDetector(
+                      onTap: () async {
+                        try {
+                          final credential = await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'user-not-found') {
+                            print('No user found for that email.');
+                          } else if (e.code == 'wrong-password') {
+                            print('Wrong password provided for that user.');
+                          }
                         }
-                      }
-                      // Navigator.pushReplacement(context,
-                      //     MaterialPageRoute(builder: (context) => navBar()));
-                    },
-                    child: Image.asset(
-                      "assets/images/login.png",
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      fit: BoxFit.cover,
+                        // Navigator.pushReplacement(context,
+                        //     MaterialPageRoute(builder: (context) => navBar()));
+                      },
+                      child: Image.asset(
+                        "assets/images/login.png",
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print("Hello");
-                    },
-                    child: Image.asset(
-                      "assets/images/signup.png",
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      fit: BoxFit.cover,
+                    GestureDetector(
+                      onTap: () {
+                        print("Hello");
+                      },
+                      child: Image.asset(
+                        "assets/images/signup.png",
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Row(children: <Widget>[
-                        Expanded(
-                            child: Divider(
-                          thickness: 2,
-                          color: Color(0xffd6f1cf),
-                        )),
-                        Text(
-                          "OR",
-                          style: GoogleFonts.averiaGruesaLibre(
-                              fontSize: 20, color: Colors.white),
-                        ),
-                        Expanded(
-                            child: Divider(
-                          thickness: 2,
-                          color: Color(0xffd6f1cf),
-                        )),
-                      ])),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  GoogleAuthButton(
-                    onPressed: () async {
-                      try {
-                        await signInWithGoogle();
-                        User user = FirebaseAuth.instance.currentUser!;
-                        print(user.displayName);
-                        var data = {
-                          "name": user.displayName,
-                          "email": user.email,
-                          "pic": user.photoURL,
-                          "uid": user.uid,
-                          "posts": []
-                        };
-                        await FBCollections.users.doc(user.uid).set(data);
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => navBar()));
-                      } catch (e) {
-                        print('exception->$e');
-                      }
-                    },
-                    style: AuthButtonStyle(
-                      buttonType: AuthButtonType.icon,
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                ],
-              )
-            ])),
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Row(children: <Widget>[
+                          Expanded(
+                              child: Divider(
+                            thickness: 2,
+                            color: Color(0xffd6f1cf),
+                          )),
+                          Text(
+                            "OR",
+                            style: GoogleFonts.averiaGruesaLibre(
+                                fontSize: 20, color: Colors.white),
+                          ),
+                          Expanded(
+                              child: Divider(
+                            thickness: 2,
+                            color: Color(0xffd6f1cf),
+                          )),
+                        ])),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GoogleAuthButton(
+                      onPressed: () async {
+                        try {
+                          await signInWithGoogle();
+                          User user = FirebaseAuth.instance.currentUser!;
+                          print(user.displayName);
+                          var doc =
+                              await FBCollections.users.doc(user.uid).get();
+                          if (doc.data() == null) {
+                            var data = {
+                              "name": user.displayName,
+                              "email": user.email,
+                              "pic": user.photoURL,
+                              "uid": user.uid,
+                              "posts": []
+                            };
+                            await FBCollections.users.doc(user.uid).set(data);
+                          }
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => navBar(
+                                        selectedIndex: 1,
+                                      )));
+                        } catch (e) {
+                          print('exception->$e');
+                        }
+                      },
+                      style: AuthButtonStyle(
+                        buttonType: AuthButtonType.icon,
+                      ),
+                    ),
+                  ],
+                )
+              ])),
+        ),
       ),
     ]));
   }

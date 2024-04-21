@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geobin/collections.dart';
 import 'package:geobin/editprofile.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,10 +62,26 @@ class _ProfilePageState extends State<ProfilePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  CircleAvatar(
-                                    radius: 60,
-                                    backgroundImage: NetworkImage(
-                                        widget.userData!['pic_url']),
+                                  CachedNetworkImage(
+                                    imageUrl: widget.userData?["pic_url"],
+                                    placeholder: (context, url) =>
+                                        SpinKitPumpingHeart(
+                                      color: Colors.red,
+                                      size: 50.0,
+                                    ),
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      width: 110.0,
+                                      height: 110.0,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   ),
                                   SizedBox(
                                     width: 30,

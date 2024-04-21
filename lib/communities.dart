@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geobin/addPost.dart';
 import 'package:geobin/collections.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class communitiesPage extends StatefulWidget {
   communitiesPage({super.key});
@@ -84,9 +86,13 @@ class postWidget extends StatelessWidget {
                 width: 375,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    data["pic_url"],
-                    fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    imageUrl: data["pic_url"],
+                    placeholder: (context, url) => SpinKitWave(
+                      color: Colors.red,
+                      size: 50.0,
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),

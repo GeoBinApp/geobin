@@ -61,11 +61,11 @@ class _navBarState extends State<navBar> {
               color: Colors.black,
               tabs: [
                 GButton(
-                  icon: Icons.home,
+                  icon: Icons.heart_broken,
                   text: 'Home',
                 ),
                 GButton(
-                  icon: Icons.heart_broken,
+                  icon: Icons.location_on,
                   text: 'GeoTag',
                 ),
                 GButton(
