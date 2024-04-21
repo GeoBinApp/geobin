@@ -68,7 +68,7 @@ class _navBarState extends State<navBar> {
                 ),
                 GButton(
                   icon: Icons.heart_broken,
-                  text: 'Likes',
+                  text: 'GeoTag',
                 ),
                 GButton(
                   icon: Icons.people,

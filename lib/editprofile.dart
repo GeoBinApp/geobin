@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geobin/collections.dart';
+import 'package:geobin/nav.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -109,6 +110,12 @@ class _editProfilePageState extends State<editProfilePage> {
                 } catch (e) {
                   print(e);
                 }
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => navBar(
+                              selectedIndex: 3,
+                            )));
               },
               child: Text("Add Post"),
             )
