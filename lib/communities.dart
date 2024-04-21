@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geobin/addPost.dart';
 import 'package:geobin/collections.dart';
@@ -23,8 +24,6 @@ class _communitiesPageState extends State<communitiesPage> {
       setState(() {
         widget.communities = comData;
       });
-
-      // print(widget.communities![0].data());
     });
   }
 
@@ -65,6 +64,7 @@ class postWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User user = FirebaseAuth.instance.currentUser!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -100,13 +100,31 @@ class postWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      data["name"],
-                      style: GoogleFonts.autourOne(
-                          fontSize: 30, color: Colors.black),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data["name"],
+                          style: GoogleFonts.autourOne(
+                              fontSize: 30, color: Colors.black),
+                        ),
+                        Text(
+                          data["location"],
+                          style: GoogleFonts.averageSans(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        List members = data["joined"];
+                        members.add(user.uid);
+                        await FBCollections.community
+                            .doc(data["id"])
+                            .update({"joined": members});
+                      },
                       child: Text("Join"),
                     ),
                   ],
@@ -115,7 +133,7 @@ class postWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                 child: Container(
-                  height: 100,
+                  height: 75,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Align(

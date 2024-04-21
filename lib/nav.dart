@@ -5,12 +5,20 @@ import 'package:geobin/profilepage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class navBar extends StatefulWidget {
+  int selectedIndex;
+  navBar({this.selectedIndex = 0});
   @override
   _navBarState createState() => _navBarState();
 }
 
 class _navBarState extends State<navBar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[

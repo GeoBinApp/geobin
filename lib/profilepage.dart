@@ -1,14 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geobin/collections.dart';
+import 'package:geobin/editprofile.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
+  Map<String, dynamic>? userData;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    User user = FirebaseAuth.instance.currentUser!;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      DocumentSnapshot userDoc = await FBCollections.users.doc(user.uid).get();
+      var usrData = userDoc.data() as Map<String, dynamic>;
+      setState(() {
+        widget.userData = usrData;
+      });
+    });
+  }
+
+  User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,95 +58,60 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             CircleAvatar(
                               radius: 60,
-                              child: Image.network(
-                                  "https://cdn-icons-png.flaticon.com/512/924/924915.png"),
+                              backgroundImage:
+                                  NetworkImage(widget.userData!['pic']),
                             ),
                             SizedBox(
                               width: 30,
                             ),
-                            Text(
-                              "Ria",
-                              style: GoogleFonts.autourOne(
-                                  fontSize: 40, color: Colors.white),
+                            Flexible(
+                              child: Text(
+                                widget.userData!['name'],
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.autourOne(
+                                    fontSize: 40, color: Colors.white),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      Divider(
-                        thickness: 2,
-                      ),
-                      Text(
-                        "Score: 100",
-                        style: GoogleFonts.autourOne(
-                            fontSize: 20, color: Colors.black),
-                      )
                     ],
                   ),
                 ),
               ),
             ),
             //5555555555555555555555225602289682181238/1/85
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  // color: Colors.green[300],
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 70,
-                              ),
-                              Text(
-                                "Points",
-                                style: GoogleFonts.autourOne(
-                                    fontSize: 20, color: Colors.black),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.edit_note_outlined,
-                                color: Colors.black,
-                                size: 70,
-                              ),
-                              Text(
-                                "Edit Profile",
-                                style: GoogleFonts.autourOne(
-                                    fontSize: 20, color: Colors.black),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.verified,
-                                color: Colors.blue,
-                                size: 70,
-                              ),
-                              Text(
-                                "Status",
-                                style: GoogleFonts.autourOne(
-                                    fontSize: 20, color: Colors.black),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => editProfilePage()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.edit_note_outlined,
+                          size: 50,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          "Edit Profile",
+                          style: GoogleFonts.autourOne(
+                              fontSize: 30, color: Colors.black),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
