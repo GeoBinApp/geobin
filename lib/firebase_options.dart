@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,15 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAdomx6W3LZzqO0d4T80TerW-uE1s8IIQY',
+    appId: '1:37699792350:web:8dd076e6a4f59f4093014f',
+    messagingSenderId: '37699792350',
+    projectId: 'geo-bin-sem4',
+    authDomain: 'geo-bin-sem4.firebaseapp.com',
+    storageBucket: 'geo-bin-sem4.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyClU1lLQIJtJyW9I7gvI7nrtzRyDxo6K-s',
     appId: '1:37699792350:android:c874dadfc8054b3f93014f',
@@ -63,7 +66,19 @@ class DefaultFirebaseOptions {
     messagingSenderId: '37699792350',
     projectId: 'geo-bin-sem4',
     storageBucket: 'geo-bin-sem4.appspot.com',
+    androidClientId: '37699792350-mk0rnv851bu8d4h6aipufme0kralrtd6.apps.googleusercontent.com',
     iosClientId: '37699792350-6kb06dhjfvupa1bmfkcmtke08g2a4fut.apps.googleusercontent.com',
     iosBundleId: 'com.example.geobin',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDRkcf6X8OndpS4U1tygazvOpo2xJSFOCY',
+    appId: '1:37699792350:ios:afa33d54c8503ad793014f',
+    messagingSenderId: '37699792350',
+    projectId: 'geo-bin-sem4',
+    storageBucket: 'geo-bin-sem4.appspot.com',
+    androidClientId: '37699792350-mk0rnv851bu8d4h6aipufme0kralrtd6.apps.googleusercontent.com',
+    iosClientId: '37699792350-gp089fj8bq237l1517qhkvkdub9bsstm.apps.googleusercontent.com',
+    iosBundleId: 'com.example.geobin.RunnerTests',
   );
 }

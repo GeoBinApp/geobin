@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -45,23 +46,19 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Text(
                               "Ria",
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                              style: GoogleFonts.autourOne(
+                                  fontSize: 40, color: Colors.white),
                             ),
                           ],
                         ),
                       ),
                       Divider(
-                        thickness: 5,
+                        thickness: 2,
                       ),
                       Text(
                         "Score: 100",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                        style: GoogleFonts.autourOne(
+                            fontSize: 20, color: Colors.black),
                       )
                     ],
                   ),
@@ -94,10 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               Text(
                                 "Points",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.autourOne(
+                                    fontSize: 20, color: Colors.black),
                               )
                             ],
                           ),
@@ -109,11 +104,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 size: 70,
                               ),
                               Text(
-                                "Points",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                "Edit Profile",
+                                style: GoogleFonts.autourOne(
+                                    fontSize: 20, color: Colors.black),
                               )
                             ],
                           ),
@@ -125,11 +118,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 size: 70,
                               ),
                               Text(
-                                "Points",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                "Status",
+                                style: GoogleFonts.autourOne(
+                                    fontSize: 20, color: Colors.black),
                               )
                             ],
                           ),
@@ -161,10 +152,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Text(
                         "Settings",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                        style: GoogleFonts.autourOne(
+                            fontSize: 30, color: Colors.black),
                       )
                     ],
                   ),
@@ -192,10 +181,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Text(
                         "Terms and Conditions",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                        style: GoogleFonts.autourOne(
+                            fontSize: 23, color: Colors.black),
                       )
                     ],
                   ),
@@ -223,10 +210,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Text(
                         "FAQs and Help",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                        style: GoogleFonts.autourOne(
+                            fontSize: 30, color: Colors.black),
                       )
                     ],
                   ),
@@ -254,10 +239,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Text(
                         "Report",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                        style: GoogleFonts.autourOne(
+                            fontSize: 30, color: Colors.black),
                       )
                     ],
                   ),

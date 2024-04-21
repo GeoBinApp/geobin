@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geobin/collections.dart';
 import 'package:geobin/homepage.dart';
 import 'package:auth_buttons/auth_buttons.dart';
+import 'package:geobin/nav.dart';
 import 'package:geobin/profilepage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LandingPage extends StatefulWidget {
@@ -35,58 +39,122 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text("Login Page")),
-        backgroundColor: Colors.green,
+        child: Stack(children: [
+      Container(
+        color: Color(0xffd6f1cf),
+        height: double.infinity,
+        width: double.infinity,
       ),
-      body: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-            Column(
-              children: [
-                Center(
-                  child: Text(
-                    "Welcome to Geobin",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      Image.asset(
+        "assets/images/bg.jpg",
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
+      ),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 100,
                   ),
-                ),
-                // Text(
-                //   "           Geobin!",
-                //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                // ),
-              ],
-            ),
-            Column(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                  Center(
+                    child: Text(
+                      "Welcome to",
+                      style: GoogleFonts.averiaGruesaLibre(
+                          fontSize: 45, color: Colors.white),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      "GeoBin",
+                      style:
+                          GoogleFonts.cutive(fontSize: 60, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => navBar()));
                     },
-                    child: Text("Login")),
-                GoogleAuthButton(
-                  onPressed: () async {
-                    try {
-                      await signInWithGoogle();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage()));
-                    } catch (e) {
-                      print('exception->$e');
-                    }
-                  },
-                  style: AuthButtonStyle(
-                    buttonType: AuthButtonType.icon,
+                    child: Image.asset(
+                      "assets/images/login.png",
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                ElevatedButton(onPressed: () {}, child: Text("Sign Up")),
-              ],
-            )
-          ])),
-    ));
+                  GestureDetector(
+                    onTap: () {
+                      print("Hello");
+                    },
+                    child: Image.asset(
+                      "assets/images/signup.png",
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: Row(children: <Widget>[
+                        Expanded(
+                            child: Divider(
+                          thickness: 2,
+                          color: Color(0xffd6f1cf),
+                        )),
+                        Text(
+                          "OR",
+                          style: GoogleFonts.averiaGruesaLibre(
+                              fontSize: 20, color: Colors.white),
+                        ),
+                        Expanded(
+                            child: Divider(
+                          thickness: 2,
+                          color: Color(0xffd6f1cf),
+                        )),
+                      ])),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GoogleAuthButton(
+                    onPressed: () async {
+                      try {
+                        await signInWithGoogle();
+                        User user = FirebaseAuth.instance.currentUser!;
+                        print(user.displayName);
+                        var data = {
+                          "name": user.displayName,
+                          "email": user.email,
+                          "pic": user.photoURL,
+                          "uid": user.uid,
+                          "posts": []
+                        };
+                        await FBCollections.users.doc(user.uid).set(data);
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => navBar()));
+                      } catch (e) {
+                        print('exception->$e');
+                      }
+                    },
+                    style: AuthButtonStyle(
+                      buttonType: AuthButtonType.icon,
+                    ),
+                  ),
+                ],
+              )
+            ])),
+      ),
+    ]));
   }
 }
 //206 bla 1:30 - 3:30

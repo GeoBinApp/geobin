@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "37699792350-mk0rnv851bu8d4h6aipufme0kralrtd6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.geobin",
+            "certificate_hash": "86432684b3876e55082404b492aab02ad2df4d6b"
+          }
+        },
+        {
           "client_id": "37699792350-nqmhl9ncog439788hklnli9572bgfk2m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "37699792350-nqmhl9ncog439788hklnli9572bgfk2m.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "37699792350-6kb06dhjfvupa1bmfkcmtke08g2a4fut.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.geobin"
+              }
             }
           ]
         }
