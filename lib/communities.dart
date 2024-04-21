@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geobin/addPost.dart';
 import 'package:geobin/collections.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,28 +24,35 @@ class _communitiesPageState extends State<communitiesPage> {
         widget.communities = comData;
       });
 
-      print(widget.communities![0].data());
+      // print(widget.communities![0].data());
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Communities"),
-      ),
-      body: widget.communities == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: widget.communities!.length,
-              itemBuilder: (BuildContext context, int index) {
-                DocumentSnapshot post = widget.communities![index];
-                var data = post.data() as Map<String, dynamic>;
-                return postWidget(data: data);
-              }),
-    );
+        appBar: AppBar(
+          title: Text("Communities"),
+        ),
+        body: widget.communities == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: widget.communities!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  DocumentSnapshot post = widget.communities![index];
+                  var data = post.data() as Map<String, dynamic>;
+                  return postWidget(data: data);
+                }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => addPostPage()));
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Color(0xffd6f1cf),
+        ));
   }
 }
 
@@ -76,7 +84,7 @@ class postWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
-                    "https://pbs.twimg.com/media/FcV9NqLaAAIjDp2.jpg",
+                    data["pic_url"],
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -93,11 +101,14 @@ class postWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Post Name",
+                      data["name"],
                       style: GoogleFonts.autourOne(
                           fontSize: 30, color: Colors.black),
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text("Join")),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Join"),
+                    ),
                   ],
                 ),
               ),
@@ -110,7 +121,7 @@ class postWidget extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          "Quisque felis ante, dapibus sed ligula vitae, efficitur sagittis metus. Proin fringilla cursus nisi et maximus. Aliquam vitae dui nunc. Mauris in egestas erat, sit amet aliquam ligula. Nunc nec finibus ante, et sagittis lacus. Curabitur lobortis, ex ut ornare sagittis, massa est accumsan elit, vel scelerisque nibh nulla sed lorem. Vestibulum feugiat cursus egestas. Donec pretium diam at lorem vestibulum sodales. Curabitur id efficitur nulla. Curabitur sollicitudin dapibus libero interdum feugiat. Sed dictum turpis et purus efficitur blandit. Etiam nisi dui, rhoncus non viverra eget, dignissim in nunc. Nulla quis viverra magna. Pellentesque rutrum, odio vitae dictum pretium, ex nisi pharetra nisl, sit amet laoreet justo sapien eget erat. Aliquam id sapien eget felis gravida lobortis sed sagittis ante. Morbi laoreet mauris eget cursus tincidunt.",
+                          data["description"],
                           style: GoogleFonts.averageSans(
                               fontSize: 20, color: Colors.black),
                         )),
