@@ -38,6 +38,8 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     return SafeArea(
         child: Stack(children: [
       Container(
@@ -80,10 +82,58 @@ class _LandingPageState extends State<LandingPage> {
               ),
               Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        iconColor: Colors.white,
+                        focusColor: Colors.white,
+                        hoverColor: Colors.white,
+                        suffixIconColor: Colors.white,
+                        hintText: 'Enter Email Address',
+                        suffixIcon: Icon(Icons.person),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: passwordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: const InputDecoration(
+                        iconColor: Colors.white,
+                        focusColor: Colors.white,
+                        hoverColor: Colors.white,
+                        suffixIconColor: Colors.white,
+                        hintText: 'Enter Password',
+                        suffixIcon: Icon(Icons.lock),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                        ),
+                      ),
+                    ),
+                  ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => navBar()));
+                    onTap: () async {
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('No user found for that email.');
+                        } else if (e.code == 'wrong-password') {
+                          print('Wrong password provided for that user.');
+                        }
+                      }
+                      // Navigator.pushReplacement(context,
+                      //     MaterialPageRoute(builder: (context) => navBar()));
                     },
                     child: Image.asset(
                       "assets/images/login.png",
