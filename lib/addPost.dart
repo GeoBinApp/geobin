@@ -47,25 +47,30 @@ class _addPostPageState extends State<addPostPage> {
                 });
               },
               child: Container(
-                height: 150,
+                height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add_a_photo,
-                      size: 45,
-                    ),
-                    Text(
-                      "Add Post Picture",
-                      style: GoogleFonts.autourOne(
-                          fontSize: 30, color: Colors.black),
-                    ),
-                  ],
-                ),
+                child: widget.imgPath != null
+                    ? Image.file(
+                        File(widget.imgPath!),
+                        fit: BoxFit.cover,
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_a_photo,
+                            size: 45,
+                          ),
+                          Text(
+                            "Add Post Picture",
+                            style: GoogleFonts.autourOne(
+                                fontSize: 30, color: Colors.black),
+                          ),
+                        ],
+                      ),
               ),
             ),
             Padding(

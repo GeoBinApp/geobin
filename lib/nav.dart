@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geobin/communities.dart';
+import 'package:geobin/geotag.dart';
 import 'package:geobin/homepage.dart';
 import 'package:geobin/profilepage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -23,10 +24,7 @@ class _navBarState extends State<navBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Likes',
-      style: optionStyle,
-    ),
+    geoTagScreen(),
     communitiesPage(),
     ProfilePage(),
   ];
