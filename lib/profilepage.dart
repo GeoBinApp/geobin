@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geobin/collections.dart';
 import 'package:geobin/editprofile.dart';
+import 'package:geobin/landingpage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({super.key});
@@ -33,6 +35,16 @@ class _ProfilePageState extends State<ProfilePage> {
   User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
+    Future<bool> signOutFromGoogle() async {
+      try {
+        await FirebaseAuth.instance.signOut();
+        await GoogleSignIn().signOut();
+        return true;
+      } on Exception catch (_) {
+        return false;
+      }
+    }
+
     return widget.userData == null
         ? Center(
             child: CircularProgressIndicator(),
@@ -250,12 +262,51 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Report",
                               style: GoogleFonts.autourOne(
                                   fontSize: 30, color: Colors.black),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      await signOutFromGoogle();
+                      //await FirebaseAuth.instance.signOut();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LandingPage()));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          // color: Colors.green[300],
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.logout,
+                                size: 50,
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                "Log Out",
+                                style: GoogleFonts.autourOne(
+                                    fontSize: 30, color: Colors.black),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

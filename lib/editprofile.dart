@@ -122,7 +122,7 @@ class _editProfilePageState extends State<editProfilePage> {
                               selectedIndex: 3,
                             )));
               },
-              child: Text("Add Post"),
+              child: Text("Save Changes"),
             )
           ],
         ),

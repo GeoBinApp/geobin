@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class geoTagScreen extends StatefulWidget {
-  geoTagScreen({super.key});
+  geoTagScreen({super.key, this.imgPath});
   String? imgPath;
   Reference? imgUp;
 
@@ -18,6 +18,14 @@ class geoTagScreen extends StatefulWidget {
 }
 
 class _geoTagScreenState extends State<geoTagScreen> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      widget.imgPath = null;
+    });
+  }
+
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -50,7 +58,7 @@ class _geoTagScreenState extends State<geoTagScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Profile"),
+        title: Text("GeoTags"),
       ),
       body: Padding(
         padding:
@@ -93,7 +101,8 @@ class _geoTagScreenState extends State<geoTagScreen> {
                               size: 45,
                             ),
                             Text(
-                              "Add Profile Picture",
+                              "Click a Picture of the trash to tag it!",
+                              textAlign: TextAlign.center,
                               style: GoogleFonts.autourOne(
                                   fontSize: 30, color: Colors.black),
                             ),

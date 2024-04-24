@@ -204,7 +204,7 @@ class _LandingPageState extends State<LandingPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => navBar(
-                                        selectedIndex: 1,
+                                        selectedIndex: 0,
                                       )));
                         } catch (e) {
                           print('exception->$e');

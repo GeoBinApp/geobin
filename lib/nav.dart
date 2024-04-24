@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geobin/communities.dart';
 import 'package:geobin/geotag.dart';
 import 'package:geobin/homepage.dart';
+import 'package:geobin/modelPage.dart';
 import 'package:geobin/profilepage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -21,10 +22,13 @@ class _navBarState extends State<navBar> {
   }
 
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+      TextStyle(fontSize: 25, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    geoTagScreen(),
+    geoTagScreen(
+      imgPath: null,
+    ),
+    ModelPage(),
     communitiesPage(),
     ProfilePage(),
   ];
@@ -52,25 +56,29 @@ class _navBarState extends State<navBar> {
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
-              gap: 8,
+              gap: 1,
               activeColor: Colors.black,
-              iconSize: 24,
+              iconSize: 20,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,
               tabs: [
                 GButton(
-                  icon: Icons.heart_broken,
-                  text: 'Home',
+                  icon: Icons.delete,
+                  text: 'Bins',
                 ),
                 GButton(
                   icon: Icons.location_on,
                   text: 'GeoTag',
                 ),
                 GButton(
+                  icon: Icons.model_training,
+                  text: 'Detect',
+                ),
+                GButton(
                   icon: Icons.people,
-                  text: 'Communities',
+                  text: 'Posts',
                 ),
                 GButton(
                   icon: Icons.person,
