@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:geobin/collections.dart';
+import 'package:geobin/landingpage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -57,6 +59,19 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var doc = await FBCollections.users
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+      if (userData['isBanned']) {
+        await FirebaseAuth.instance.signOut();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "You are banned from this application! If you think this is a mistake please contact the admin!"),
+        ));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LandingPage()));
+      }
       Position userLoc = await determinePosition();
       setState(() {
         widget.userPos = LatLng(userLoc.latitude, userLoc.longitude);
@@ -79,7 +94,7 @@ class _HomePageState extends State<HomePage> {
             ),
             body: FlutterMap(
               options: MapOptions(
-                  initialCenter: LatLng(28.450645, 77.5841967),
+                  initialCenter: widget.userPos!,
                   // center: LatLng(59.438484, 24.742595),
                   initialZoom: 14,
                   keepAlive: true),

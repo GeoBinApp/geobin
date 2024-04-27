@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  LandingPage({super.key});
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -38,6 +38,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return SafeArea(
@@ -49,8 +50,8 @@ class _LandingPageState extends State<LandingPage> {
       ),
       Image.asset(
         "assets/images/bg.jpg",
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: size.height,
+        width: size.width,
         fit: BoxFit.cover,
       ),
       Scaffold(
@@ -134,26 +135,85 @@ class _LandingPageState extends State<LandingPage> {
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             print('No user found for that email.');
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("User Not Found! Please Sign Up!"),
+                            ));
                           } else if (e.code == 'wrong-password') {
                             print('Wrong password provided for that user.');
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("Wrong Password! Please Try Again!"),
+                            ));
+                          } else if (e.code == 'invalid-credential') {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Please Login using Google!"),
+                            ));
                           }
                         }
-                        // Navigator.pushReplacement(context,
-                        //     MaterialPageRoute(builder: (context) => navBar()));
+                        User user = FirebaseAuth.instance.currentUser!;
+                        print(user.displayName);
+                        var doc = await FBCollections.users.doc(user.uid).get();
+                        Map<String, dynamic> userData =
+                            doc.data() as Map<String, dynamic>;
+                        if (userData['isBanned']) {
+                          await FirebaseAuth.instance.signOut();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "You are banned from this application! If you think this is a mistake please contact the admin!"),
+                          ));
+                        } else {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => navBar()));
+                        }
                       },
                       child: Image.asset(
                         "assets/images/login.png",
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        width: size.width * 0.7,
                         fit: BoxFit.cover,
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        print("Hello");
+                      onTap: () async {
+                        try {
+                          final credential = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'email-already-in-use') {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("User Already Exists! Please Login!"),
+                            ));
+                            //widget.error = "User Already Exists! Please Login!";
+                            setState(() {});
+                            print(e.toString());
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Error! Please Try Again!"),
+                            ));
+                            // widget.error = "Error! Please Try Again!";
+                            setState(() {});
+                            print(e.toString());
+                          }
+                          User user = FirebaseAuth.instance.currentUser!;
+                          var data = {
+                            "name": user.displayName,
+                            "email": user.email,
+                            "pic": user.photoURL,
+                            "uid": user.uid,
+                            "posts": [],
+                            "isReported": false,
+                            "isBanned": false,
+                          };
+                          await FBCollections.users.doc(user.uid).set(data);
+                        }
                       },
                       child: Image.asset(
                         "assets/images/signup.png",
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        width: size.width * 0.7,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -161,7 +221,7 @@ class _LandingPageState extends State<LandingPage> {
                       height: 20,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
+                        width: size.width * 0.9,
                         child: Row(children: <Widget>[
                           Expanded(
                               child: Divider(
@@ -201,13 +261,27 @@ class _LandingPageState extends State<LandingPage> {
                               "isBanned": false,
                             };
                             await FBCollections.users.doc(user.uid).set(data);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => navBar()));
+                          } else {
+                            Map<String, dynamic> userData =
+                                doc.data() as Map<String, dynamic>;
+                            if (userData['isBanned']) {
+                              await FirebaseAuth.instance.signOut();
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                    "You are banned from this application! If you think this is a mistake please contact the admin!"),
+                              ));
+                            } else {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => navBar()));
+                            }
                           }
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => navBar(
-                                        selectedIndex: 0,
-                                      )));
                         } catch (e) {
                           print('exception->$e');
                         }
