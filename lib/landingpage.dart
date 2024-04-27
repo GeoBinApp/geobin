@@ -196,7 +196,9 @@ class _LandingPageState extends State<LandingPage> {
                               "email": user.email,
                               "pic": user.photoURL,
                               "uid": user.uid,
-                              "posts": []
+                              "posts": [],
+                              "isReported": false,
+                              "isBanned": false,
                             };
                             await FBCollections.users.doc(user.uid).set(data);
                           }

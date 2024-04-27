@@ -109,7 +109,7 @@ class _editProfilePageState extends State<editProfilePage> {
                   var data = {
                     "name": nameController.text,
                     "email": descriptionController.text,
-                    "pic_url": url,
+                    "pic": url,
                   };
                   await FBCollections.users.doc(user.uid).update(data);
                 } catch (e) {

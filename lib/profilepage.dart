@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Row(
                                 children: [
                                   CachedNetworkImage(
-                                    imageUrl: widget.userData?["pic_url"],
+                                    imageUrl: widget.userData?["pic"],
                                     placeholder: (context, url) =>
                                         SpinKitPumpingHeart(
                                       color: Colors.red,

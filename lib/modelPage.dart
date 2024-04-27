@@ -19,7 +19,7 @@ class _ModelPageState extends State<ModelPage> {
     var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://7c9ccc19c6c0acd7dd5f9502ebc585b2.loophole.site/process_picture/'));
+            'https://geobin-bennett.loophole.site/process_picture/'));
 
     // Add the image file to the request
     request.files
