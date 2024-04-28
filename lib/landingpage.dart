@@ -232,7 +232,7 @@ class _LandingPageState extends State<LandingPage> {
                           Text(
                             "OR",
                             style: GoogleFonts.averiaGruesaLibre(
-                                fontSize: 20, color: Colors.grey),
+                                fontSize: 20, color: Colors.white),
                           ),
                           Expanded(
                               child: Divider(
