@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geobin/collections.dart';
+import 'package:geobin/constants.dart';
 import 'package:geobin/homepage.dart';
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:geobin/nav.dart';
@@ -38,7 +40,6 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return SafeArea(
@@ -50,8 +51,8 @@ class _LandingPageState extends State<LandingPage> {
       ),
       Image.asset(
         "assets/images/bg.jpg",
-        height: size.height,
-        width: size.width,
+        height: Sizes.h,
+        width: Sizes.w,
         fit: BoxFit.cover,
       ),
       Scaffold(
@@ -62,25 +63,25 @@ class _LandingPageState extends State<LandingPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                 SizedBox(
-                  height: 125,
+                  height: Sizes.h125,
                 ),
                 Column(
                   children: [
                     SizedBox(
-                      height: 100,
+                      height: Sizes.h100,
                     ),
                     Center(
                       child: Text(
                         "Welcome to",
                         style: GoogleFonts.averiaGruesaLibre(
-                            fontSize: 45, color: Colors.white),
+                            fontSize: 40.sp, color: Colors.white),
                       ),
                     ),
                     Center(
                       child: Text(
                         "GeoBin",
                         style: GoogleFonts.cutive(
-                            fontSize: 60, color: Colors.white),
+                            fontSize: 50.sp, color: Colors.white),
                       ),
                     ),
                   ],
@@ -170,7 +171,7 @@ class _LandingPageState extends State<LandingPage> {
                       },
                       child: Image.asset(
                         "assets/images/login.png",
-                        width: size.width * 0.7,
+                        width: Sizes.w280,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -213,34 +214,34 @@ class _LandingPageState extends State<LandingPage> {
                       },
                       child: Image.asset(
                         "assets/images/signup.png",
-                        width: size.width * 0.7,
+                        width: Sizes.w280,
                         fit: BoxFit.cover,
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: Sizes.h20,
                     ),
                     Container(
-                        width: size.width * 0.9,
+                        width: Sizes.w370,
                         child: Row(children: <Widget>[
                           Expanded(
                               child: Divider(
-                            thickness: 2,
+                            thickness: 2.sp,
                             color: Color(0xffd6f1cf),
                           )),
                           Text(
                             "OR",
                             style: GoogleFonts.averiaGruesaLibre(
-                                fontSize: 20, color: Colors.white),
+                                fontSize: 20, color: Colors.grey),
                           ),
                           Expanded(
                               child: Divider(
-                            thickness: 2,
+                            thickness: 2.sp,
                             color: Color(0xffd6f1cf),
                           )),
                         ])),
                     SizedBox(
-                      height: 20,
+                      height: Sizes.h20,
                     ),
                     GoogleAuthButton(
                       onPressed: () async {

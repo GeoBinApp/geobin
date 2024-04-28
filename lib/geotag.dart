@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geobin/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -66,8 +68,8 @@ class _geoTagScreenState extends State<geoTagScreen> {
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding: const EdgeInsets.only(
-                  left: 10.0, right: 10.0, top: 50, bottom: 50),
+              padding: EdgeInsets.only(
+                  left: 10.sp, right: 10.sp, top: 50.sp, bottom: 50.sp),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -87,12 +89,10 @@ class _geoTagScreenState extends State<geoTagScreen> {
                         });
                       },
                       child: Container(
-                        //height: 150,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: Colors.green,
-                            borderRadius: BorderRadius.circular(20)),
-
+                            borderRadius: BorderRadius.circular(20.sp)),
                         child: widget.imgPath != null
                             ? Image.file(
                                 File(widget.imgPath!),
@@ -103,13 +103,13 @@ class _geoTagScreenState extends State<geoTagScreen> {
                                 children: [
                                   Icon(
                                     Icons.add_a_photo,
-                                    size: 45,
+                                    size: 45.sp,
                                   ),
                                   Text(
                                     "Click a Picture of the trash to tag it!",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.autourOne(
-                                        fontSize: 30, color: Colors.black),
+                                        fontSize: 30.sp, color: Colors.black),
                                   ),
                                 ],
                               ),
@@ -117,7 +117,7 @@ class _geoTagScreenState extends State<geoTagScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: Sizes.h30,
                   ),
                   ElevatedButton(
                     onPressed: () async {

@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geobin/collections.dart';
+import 'package:geobin/constants.dart';
 import 'package:geobin/editprofile.dart';
 import 'package:geobin/landingpage.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -59,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 200,
+                      height: Sizes.h200,
                       decoration: BoxDecoration(
                         color: Colors.green[300],
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -83,8 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
-                                      width: 110.0,
-                                      height: 110.0,
+                                      width: Sizes.w110,
+                                      height: Sizes.h110,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
@@ -96,14 +99,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                         Icon(Icons.error),
                                   ),
                                   SizedBox(
-                                    width: 30,
+                                    width: Sizes.w20,
                                   ),
                                   Flexible(
                                     child: Text(
                                       widget.userData!['name'],
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.autourOne(
-                                          fontSize: 40, color: Colors.white),
+                                          fontSize: 32.sp, color: Colors.white),
                                     ),
                                   ),
                                 ],
@@ -116,200 +119,91 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   //5555555555555555555555225602289682181238/1/85
 
-                  InkWell(
-                    onTap: () {
+                  profileMenuButton(
+                    onClick: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => editProfilePage()));
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.edit_note_outlined,
-                                size: 50,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Edit Profile",
-                                style: GoogleFonts.autourOne(
-                                    fontSize: 30, color: Colors.black),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    icon: Icons.edit_note_outlined,
+                    title: "Edit Profile",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        // color: Colors.green[300],
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.settings,
-                              size: 50,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              "Settings",
-                              style: GoogleFonts.autourOne(
-                                  fontSize: 30, color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                  profileMenuButton(
+                      onClick: () {}, icon: Icons.settings, title: "Settings"),
+                  profileMenuButton(
+                    onClick: () {},
+                    icon: Icons.notes,
+                    title: "Terms and Conditions",
+                    isLong: true,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        //color: Colors.green[300],
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.notes,
-                              size: 50,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              "Terms and Conditions",
-                              style: GoogleFonts.autourOne(
-                                  fontSize: 23, color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        // color: Colors.green[300],
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.help,
-                              size: 50,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              "FAQs and Help",
-                              style: GoogleFonts.autourOne(
-                                  fontSize: 30, color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        //color: Colors.green[300],
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.error,
-                              size: 50,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              "Report",
-                              style: GoogleFonts.autourOne(
-                                  fontSize: 30, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      await signOutFromGoogle();
-                      //await FirebaseAuth.instance.signOut();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LandingPage()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          // color: Colors.green[300],
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.logout,
-                                size: 50,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Log Out",
-                                style: GoogleFonts.autourOne(
-                                    fontSize: 30, color: Colors.black),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  profileMenuButton(
+                      onClick: () {}, icon: Icons.help, title: "FAQs and Help"),
+                  profileMenuButton(
+                      onClick: () {}, icon: Icons.error, title: "Report"),
+                  profileMenuButton(
+                      onClick: () async {
+                        await signOutFromGoogle();
+                        //await FirebaseAuth.instance.signOut();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LandingPage()));
+                      },
+                      icon: Icons.logout,
+                      title: "Log Out"),
                 ],
               ),
             ),
           );
+  }
+}
+
+class profileMenuButton extends StatelessWidget {
+  profileMenuButton({
+    super.key,
+    required this.onClick,
+    required this.icon,
+    required this.title,
+    this.isLong = false,
+  });
+  void Function() onClick;
+  IconData icon;
+  String title;
+  bool isLong;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onClick,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: Sizes.h100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 50.sp,
+                ),
+                SizedBox(
+                  width: Sizes.w20,
+                ),
+                Text(
+                  title,
+                  style: GoogleFonts.autourOne(
+                      fontSize: isLong ? 20.sp : 25.sp, color: Colors.black),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
