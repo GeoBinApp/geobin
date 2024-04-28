@@ -48,6 +48,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37699792350:android:7168680332aa1d8d93014f",
+        "android_client_info": {
+          "package_name": "com.madhavgupta.geobin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37699792350-nqmhl9ncog439788hklnli9572bgfk2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClU1lLQIJtJyW9I7gvI7nrtzRyDxo6K-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37699792350-nqmhl9ncog439788hklnli9572bgfk2m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "37699792350-6kb06dhjfvupa1bmfkcmtke08g2a4fut.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.geobin"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

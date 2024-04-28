@@ -1,4 +1,4 @@
-package com.example.geobin
+package com.madhavgupta.geobin
 
 import io.flutter.embedding.android.FlutterActivity
 

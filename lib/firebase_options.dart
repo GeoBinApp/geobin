@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyClU1lLQIJtJyW9I7gvI7nrtzRyDxo6K-s',
-    appId: '1:37699792350:android:c874dadfc8054b3f93014f',
+    appId: '1:37699792350:android:7168680332aa1d8d93014f',
     messagingSenderId: '37699792350',
     projectId: 'geo-bin-sem4',
     storageBucket: 'geo-bin-sem4.appspot.com',
