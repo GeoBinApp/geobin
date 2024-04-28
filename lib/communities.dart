@@ -1,9 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geobin/addPost.dart';
 import 'package:geobin/collections.dart';
+import 'package:geobin/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class communitiesPage extends StatefulWidget {
   communitiesPage({super.key});
@@ -66,32 +71,36 @@ class postWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     User user = FirebaseAuth.instance.currentUser!;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black),
           //color: Colors.green[300],
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        height: 350,
+        height: Sizes.h350,
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Container(
-                height: 175,
-                width: 375,
+                height: Sizes.h175,
+                width: Sizes.w370,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    data["pic_url"],
-                    fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    imageUrl: data["pic_url"],
+                    placeholder: (context, url) => SpinKitWave(
+                      color: Colors.red,
+                      size: 50.0.sp,
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: Sizes.h10,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -100,6 +109,7 @@ class postWidget extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,12 +117,12 @@ class postWidget extends StatelessWidget {
                         Text(
                           data["name"],
                           style: GoogleFonts.autourOne(
-                              fontSize: 30, color: Colors.black),
+                              fontSize: 27.sp, color: Colors.black),
                         ),
                         Text(
                           data["location"],
                           style: GoogleFonts.averageSans(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
@@ -134,7 +144,7 @@ class postWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                 child: Container(
-                  height: 75,
+                  height: Sizes.h70,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Align(
@@ -142,7 +152,7 @@ class postWidget extends StatelessWidget {
                         child: Text(
                           data["description"],
                           style: GoogleFonts.averageSans(
-                              fontSize: 20, color: Colors.black),
+                              fontSize: 17.sp, color: Colors.black),
                         )),
                   ),
                 ),

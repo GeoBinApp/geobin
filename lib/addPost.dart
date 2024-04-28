@@ -80,7 +80,6 @@ class _addPostPageState extends State<addPostPage> {
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                   hintText: 'Enter Post Name',
-                  // suffixIcon: Icon(Icons.),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25)),
                   ),
@@ -94,7 +93,6 @@ class _addPostPageState extends State<addPostPage> {
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   hintText: 'Enter Post Description',
-                  // suffixIcon: Icon(Icons.),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25)),
                   ),

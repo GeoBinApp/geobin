@@ -109,7 +109,7 @@ class _editProfilePageState extends State<editProfilePage> {
                   var data = {
                     "name": nameController.text,
                     "email": descriptionController.text,
-                    "pic_url": url,
+                    "pic": url,
                   };
                   await FBCollections.users.doc(user.uid).update(data);
                 } catch (e) {
@@ -122,7 +122,7 @@ class _editProfilePageState extends State<editProfilePage> {
                               selectedIndex: 3,
                             )));
               },
-              child: Text("Add Post"),
+              child: Text("Save Changes"),
             )
           ],
         ),
